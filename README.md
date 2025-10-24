@@ -1,0 +1,1 @@
+The Flight Seat Booking System is a modern web app built with HTML CSS JS Java Spring Boot and MySQL users can search flights choose destinations timings airlines and select economy or business class a digital boarding pass with a QR code via JS library is generated and Spring Boot connects MySQL to the front end securely to store the user data
