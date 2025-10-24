@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImperialAir - Fly your dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            background-image: url('airplane.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+        @media print {
+            body * { visibility: hidden; }
+            .boarding-pass-card, .boarding-pass-card * { visibility: visible; }
+            .boarding-pass-card { page-break-after: always; margin-bottom: 20px; }
+            .print-controls { display: none; }
+            body { background: white !important; } 
+        }
+        .boarding-pass-card {
+            background-color: white; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+        .cut-line {
+            position: absolute;
+            top: 0;
+            left: 60%;
+            height: 100%;
+            width: 1px;
+            background: repeating-linear-gradient(to bottom, #d1d5db, #d1d5db 5px, transparent 5px, transparent 10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div id="boardingPassesContainer" class="w-full max-w-4xl">
+        <div id="dbStatus" class="text-center text-sm text-white/80 mb-4 bg-gray-700/70 p-2 rounded-lg">
+            Attempting to save booking data...
+        </div>
+    </div>
+
+    <div class="print-controls mt-8 w-full max-w-4xl flex justify-center space-x-4">
+        <button onclick="printBoardingPass()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300">
+            Print All Passes
+        </button>
+        <a href="../index.html" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg rounded-lg transition duration-300">
+            Return Home
+        </a>
+    </div>
+
+    <script>
+        // --- EXISTING FRONTEND LOGIC ---
+        const airlineData = {
+            "SpiceJet": { name: "SpiceJet", logo: "https://logos-world.net/wp-content/uploads/2023/01/SpiceJet-Logo.jpg", code: "SP 719" },
+            "Vistara": { name: "Vistara", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqkl1_I_pkH0_hvh-yYW7i2_C_WBdjsIMF7Q&s", code: "UK 980" },
+            "Air India": { name: "Air India", logo: "https://webdesignerdepot-wp.s3.us-east-2.amazonaws.com/2023/08/11062906/air-india-old-logo.1.jpg", code: "AI 541" },
+            "Akasa Air": { name: "Akasa Air", logo: "https://lirp.cdn-website.com/18665353/dms3rep/multi/opt/Akasa+Air+-+Vertical+Logo-640w.jpg", code: "AR 841" },
+            "Emirates": { name: "Emirates", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Y6K6yIRqkUlWj6vU91UVW2GUEzRQCyQxtg&s", code: "EM 451" },
+            "Indigo": { name: "Indigo", logo: "https://seekvectorlogo.com/wp-content/uploads/2022/01/indigo-vector-logo-2022.png", code: "IN 691" }
+        };
+        
+        const selectedAirlineName = localStorage.getItem('airlineName') || "SpiceJet";
+        const airlineInfo = airlineData[selectedAirlineName] || airlineData["SpiceJet"];
+        
+        const PNR = localStorage.getItem('pnr') || '2K8PJ4';
+        const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '["7D"]');
+        
+        let passengerNames;
+        try {
+            passengerNames = JSON.parse(localStorage.getItem('passengerNames'));
+            if (!Array.isArray(passengerNames) || passengerNames.length === 0) {
+                passengerNames = selectedSeats.map((_, index) => `Passenger ${index + 1}`);
+            }
+        } catch (e) {
+            passengerNames = selectedSeats.map((_, index) => `Passenger ${index + 1}`);
+        }
+
+        const numPasses = Math.min(passengerNames.length, selectedSeats.length);
+        
+        // --- Main Rendering Loop (NO CHANGE) ---
+        const container = document.getElementById('boardingPassesContainer');
+
+        for (let i = 0; i < numPasses; i++) {
+            const passengerName = passengerNames[i];
+            const seatNumber = selectedSeats[i];
+            const qrCodeId = `qrcode-${i}`;
+
+            const passHTML = `
+                <div class="boarding-pass-card flex flex-col md:flex-row rounded-xl">
+                    
+                    <div class="w-full md:w-3/5 p-8 rounded-l-xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center space-x-2">
+                                <div class="h-10 w-10 flex items-center justify-center">
+                                    <img src="${airlineInfo.logo}" alt="${airlineInfo.name} Logo" class="h-10 w-10 object-contain">
+                                </div>
+                                <div>
+                                    <p class="text-lg font-bold">${airlineInfo.name}</p>
+                                    <p class="text-sm">Flight • Economy</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-gray-500">PNR</p>
+                                <p class="text-2xl font-extrabold text-red-600">${PNR}</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-y-4 text-sm mb-6">
+                            <div><p class="text-gray-500">FLIGHT</p><p class="font-bold">${airlineInfo.code}</p></div>
+                            <div><p class="text-gray-500">DATE</p><p class="font-bold">${new Date().toLocaleDateString('en-GB')}</p></div>
+                            <div><p class="text-gray-500">DEPARTURE</p><p class="font-bold">06:10 PM</p></div>
+                            
+                            <div><p class="text-gray-500">PASSENGER</p><p class="font-bold">${passengerName}</p></div>
+                            <div><p class="text-gray-500">SEAT</p><p class="text-3xl font-extrabold text-blue-600">${seatNumber}</p></div>
+                            <div><p class="text-gray-500">GATE / ZONE</p><p class="font-bold">D6</p></div>
+                        </div>
+                        
+                        <p class="text-center text-xs text-gray-500 pt-4 border-t border-dashed border-gray-300">
+                            Please be at the gate 45 minutes prior to departure.
+                        </p>
+                        
+                        <div class="cut-line hidden md:block"></div>
+                    </div>
+
+                    <div class="w-full md:w-2/5 p-8 rounded-r-xl md:rounded-l-none flex flex-col justify-center items-center space-y-4">
+                        <h3 class="text-xl font-bold">BOARDING PASS</h3>
+                        <div id="${qrCodeId}" class="p-2 border border-gray-300 bg-white">
+                            </div>
+                        <p class="text-xs text-center">Scan at the gate for entry</p>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', passHTML);
+
+            const passengerDataQR = `SkyBook|PNR:${PNR}|FLIGHT:${airlineInfo.code}|SEAT:${seatNumber}|PASS:${passengerName}`;
+            new QRCode(document.getElementById(qrCodeId), {
+                text: passengerDataQR,
+                width: 150,
+                height: 150,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        
+        // --- MODIFIED: DATABASE SAVING FUNCTION with Final Data Retrieval Logic ---
+
+        function saveBookingToDatabase() {
+            // Data Retrieval (Uses previously set data in localStorage)
+            const routeData = JSON.parse(localStorage.getItem('flightRouteDetails') || '{}');
+            // This is the object now correctly saved by passenger.html
+            const primaryPassengerData = JSON.parse(localStorage.getItem('primaryPassengerDetails') || '{}'); 
+            const totalFare = parseFloat(localStorage.getItem('totalFare')) || 0.00;
+            
+            // --- DATA FALLBACK LOGIC ---
+            const today = new Date().toISOString().slice(0, 10);
+            const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10); 
+
+            // FLIGHT DETAILS (Retrieves city/date from route page data)
+            const departureCity = routeData.departureCity || 'Default Departure'; 
+            const destinationCity = routeData.destinationCity || 'Default Destination'; 
+            const departureDate = routeData.departureDate || today; 
+            const arrivalDate = routeData.arrivalDate || tomorrow; 
+            
+            // PRIMARY PASSENGER DETAILS (for single DB columns)
+            // 🛑 CRITICAL: Retrieve the SAVED data from the primaryPassengerDetails object
+            const age = parseInt(primaryPassengerData.age) || 28; 
+            const gender = primaryPassengerData.gender || 'Other'; // Gender of P1, or 'Other'
+            const mobileNumber = primaryPassengerData.mobileNumber || 'N/A'; // P1's Mobile, or 'N/A'
+
+            // Construct the JSON object matching the Spring Boot Booking.java Entity
+            const bookingData = {
+                // All passenger names combined
+                passengerName: passengerNames.join(', ') || 'N/A', 
+                
+                numberOfPassengers: numPasses,
+                
+                // Using the determined primary passenger details (or fallbacks)
+                age: age, 
+                gender: gender,
+                mobileNumber: mobileNumber,
+                travelId: PNR, 
+
+                // Flight Route Data
+                departureCity: departureCity,
+                destinationCity: destinationCity,
+                departureDate: departureDate, 
+                arrivalDate: arrivalDate,
+
+                // Final Booking Data
+                airline: selectedAirlineName,
+                fare: totalFare,
+                seatChosen: selectedSeats.join(', ') // Save all seats as a single string
+            };
+
+            const statusElement = document.getElementById('dbStatus');
+            statusElement.textContent = `Saving booking data for ${numPasses} passenger(s)...`;
+
+            // Send POST request to Spring Boot API
+            fetch('http://localhost:8080/api/bookings', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    // Get the server message if the request fails
+                    return response.text().then(text => {
+                        const errorStatus = response.status;
+                        console.error('Server error response:', text);
+                        throw new Error(`HTTP ${errorStatus}! Booking failed. See console for server message.`); 
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Booking Saved Successfully with ID:', data.id);
+                // Correctly display success and change color
+                statusElement.textContent = `Booking successfully saved! DB ID: ${data.id}.`;
+                statusElement.classList.add('bg-green-600/70', 'text-white');
+                statusElement.classList.remove('bg-gray-700/70', 'bg-red-600/70'); 
+            })
+            .catch(error => {
+                console.error('Error saving the booking:', error);
+                // Correctly display error and change color
+                statusElement.textContent = `ERROR: Booking failed to save. Check server status/console.`;
+                statusElement.classList.add('bg-red-600/70', 'text-white');
+                statusElement.classList.remove('bg-gray-700/70', 'bg-green-600/70');
+            });
+        }
+
+        // --- EXECUTION AND Print Function ---
+        
+        // ADDED: Automatically save the booking data when the page loads
+        saveBookingToDatabase();
+        
+        // EXISTING: Simple Print Function (NO CHANGE)
+        function printBoardingPass() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

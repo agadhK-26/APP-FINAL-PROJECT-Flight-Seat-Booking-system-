@@ -1,0 +1,6 @@
+/* Custom background image and overlay */
+body {
+    background-image: url('airplane.jpg'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+}

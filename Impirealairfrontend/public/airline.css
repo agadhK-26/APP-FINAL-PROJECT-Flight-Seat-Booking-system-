@@ -1,0 +1,24 @@
+/* Custom background image and overlay */
+body {
+    background-image: url('airplane.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.progress-bar { 
+    height: 4px; 
+}
+
+/* Styles for the airline cards */
+.airline-card {
+    /* Translucent, shadow, ring, and hover effects */
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+    /* Tailwind classes equivalent (p-6, rounded-xl, shadow-xl, cursor-pointer) are already in HTML */
+}
+.airline-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    /* Mimic the focus:ring-2 focus:ring-blue-400 effect */
+    border: 2px solid rgba(59, 130, 246, 0.5); /* Blue ring effect */
+}

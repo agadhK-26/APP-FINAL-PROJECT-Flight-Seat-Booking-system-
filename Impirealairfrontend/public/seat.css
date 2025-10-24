@@ -1,0 +1,43 @@
+body {
+    background-image: url('airplane.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.progress-bar { height: 4px; }
+
+/* Realistic seat styles */
+.seat {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px; /* Rounded for seat look */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+    opacity: 0.9;
+    margin-right: 4px; /* small gap between seats */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* subtle 3D effect */
+    background: linear-gradient(to bottom, #4CAF50, #3e8e41); /* default economy green */
+}
+.seat.business {
+    background: linear-gradient(to bottom, #FFA500, #e69500); /* orange gradient */
+}
+.seat.booked {
+    background: linear-gradient(to bottom, #FF0000, #cc0000); /* red gradient */
+    cursor: not-allowed;
+}
+.seat.selected {
+    background: linear-gradient(to bottom, #3b82f6, #2563eb) !important; /* blue gradient */
+    border: 2px solid white;
+    opacity: 1;
+}
+.seat:not(.booked):hover {
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+.aisle { width: 20px; } /* bigger central gap */

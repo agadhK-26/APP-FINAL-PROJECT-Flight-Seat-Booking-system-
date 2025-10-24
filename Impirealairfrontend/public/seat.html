@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImperialAir - Fly your dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="seat.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-4">
+
+    <header class="absolute top-0 w-full p-4 flex justify-between items-center text-white/80">
+        <h1 class="text-2xl font-bold">SkyBook</h1>
+        <p>Step 4 of 5</p>
+        <p>Welcome, Guest</p>
+    </header>
+
+    <div class="w-full max-w-4xl absolute top-16">
+        <div class="progress-bar bg-white/20 rounded-full">
+            <div class="h-full w-4/5 bg-blue-500 rounded-full"></div>
+        </div>
+    </div>
+
+    <main class="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-2xl ring-1 ring-white/20 w-full max-w-lg text-white mt-32">
+        <h2 class="text-3xl font-bold mb-6 text-center">Select Your Seat</h2>
+
+        <div id="seatMap" class="flex flex-col items-center overflow-y-auto max-h-[60vh] p-2">
+            <div class="w-40 h-10 bg-gray-600/50 rounded-t-full mb-4 text-center pt-2 font-bold text-sm">COCKPIT</div>
+        </div>
+
+        <div class="flex justify-center space-x-4 mt-6 text-sm">
+            <div class="flex items-center"><div class="w-4 h-4 rounded-sm bg-blue-500 mr-1"></div> Selected</div>
+            <div class="flex items-center"><div class="w-4 h-4 rounded-sm bg-[#FFA500] mr-1"></div> Business (+₹1000)</div>
+            <div class="flex items-center"><div class="w-4 h-4 rounded-sm bg-[#4CAF50] mr-1"></div> Economy</div>
+            <div class="flex items-center"><div class="w-4 h-4 rounded-sm bg-[#FF0000] mr-1"></div> Booked</div>
+        </div>
+
+        <button id="confirmSeat" class="w-full py-3 mt-6 bg-blue-600 hover:bg-blue-700 font-semibold rounded-lg transition duration-300">
+            Continue to Payment
+        </button>
+    </main>
+
+    <script src="seat.js"></script>
+</body>
+</html>

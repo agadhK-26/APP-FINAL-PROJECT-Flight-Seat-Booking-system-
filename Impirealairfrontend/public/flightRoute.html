@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImperialAir - Fly your dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="flightroute.css">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <header class="absolute top-0 w-full p-4 flex justify-between items-center text-white/80">
+        <h1 class="text-2xl font-bold">Imperial Air</h1>
+        <p>Step 1 of 5</p>
+        <h3><b>Welcome</b></h3>
+    </header>
+    <div class="w-full max-w-2xl absolute top-16">
+        <div class="progress-bar bg-white/20 rounded-full">
+            <div class="h-full w-1/5 bg-blue-500 rounded-full"></div>
+        </div>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-2xl ring-1 ring-white/20 w-full max-w-md text-white mt-20">
+        <h2 class="text-3xl font-bold mb-6 text-center">Flight Route</h2>
+        
+        <form id="flightForm" action="passenger.html" autocomplete="off">
+            <div class="mb-4">
+                <label class="block mb-2 font-medium"><b>From:</b></label>
+                <select name="departure_city" id="departureCityInput" class="w-full p-3 rounded bg-white/20 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none" required autocomplete="off">
+                    <option value="">Select departure city</option>
+                    <option value="DEL">New Delhi (DEL)</option>
+                    <option value="MUM">Mumbai (MUM)</option>
+                    <option value="BLR">Bangalore (BLR)</option>
+                    <option value="CCU">Kolkata (CCU)</option>
+                    <option value="DXB">Dubai (DXB)</option>
+                    <option value="LHR">London (LHR)</option>
+                    <option value="JFK">New York (JFK)</option>
+                    <option value="CDG">Paris (CDG)</option>
+                    <option value="HND">Tokyo (HND)</option>
+                    <option value="SIN">Singapore (SIN)</option>
+                    <option value="SYD">Sydney (SYD)</option>
+                    <option value="FRA">Frankfurt (FRA)</option>
+                    <option value="AMS">Amsterdam (AMS)</option>
+                    <option value="ICN">Seoul (ICN)</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium"><b>To:</b></label>
+                <select name="destination_city" id="destinationCityInput" class="w-full p-3 rounded bg-white/20 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-400 appearance-none" required autocomplete="off">
+                    <option value="">Select destination city</option>
+                    <option value="DEL">New Delhi (DEL)</option>
+                    <option value="MUM">Mumbai (MUM)</option>
+                    <option value="BLR">Bangalore (BLR)</option>
+                    <option value="CCU">Kolkata (CCU)</option>
+                    <option value="DXB">Dubai (DXB)</option>
+                    <option value="LHR">London (LHR)</option>
+                    <option value="JFK">New York (JFK)</option>
+                    <option value="CDG">Paris (CDG)</option>
+                    <option value="HND">Tokyo (HND)</option>
+                    <option value="SIN">Singapore (SIN)</option>
+                    <option value="SYD">Sydney (SYD)</option>
+                    <option value="FRA">Frankfurt (FRA)</option>
+                    <option value="AMS">Amsterdam (AMS)</option>
+                    <option value="ICN">Seoul (ICN)</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">Date of Departure:</label>
+                <input type="date" name="departure_date" id="departureDateInput" class="w-full p-3 rounded bg-white/20 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-white" required autocomplete="off">
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Date of Arrival (Approx):</label>
+                <input type="date" name="arrival_date" id="arrivalDateInput" class="w-full p-3 rounded bg-white/20 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-white" required autocomplete="off">
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 font-semibold rounded-lg transition duration-300">Next</button>
+        </form>
+    </div>
+
+    <script src="flightroute.js"></script>
+</body>
+</html>

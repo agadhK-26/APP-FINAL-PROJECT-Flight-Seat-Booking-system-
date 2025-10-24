@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImperialAir - Fly your dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="airline.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-4">
+
+    <header class="absolute top-0 w-full p-4 flex justify-between items-center text-white/80">
+        <h1 class="text-2xl font-bold">Imperial Air</h1>
+        <p>Step 3 of 5</p>
+        <p>Welcome</p>
+    </header>
+    <div class="w-full max-w-4xl absolute top-16">
+        <div class="progress-bar bg-white/20 rounded-full">
+            <div class="h-full w-3/5 bg-blue-500 rounded-full"></div>
+        </div>
+    </div>
+
+    <main class="w-full max-w-4xl mt-32 text-white">
+        <h2 class="text-4xl font-extrabold mb-10 text-center">Choose Your Airline</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="seat.html?fare=3950" data-airline="SpiceJet" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-600 rounded-full flex items-center justify-center">
+                            <img src="https://logos-world.net/wp-content/uploads/2023/01/SpiceJet-Logo.jpg" alt="SpiceJet Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">SpiceJet (SP 719)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹3950</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 06:10 PM</p>
+                        <p>Duration: 3h 29m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 09:39 PM</p>
+                        <p class="text-green-400">Direct Flight</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="seat.html?fare=4100" data-airline="Vistara" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-600 rounded-full flex items-center justify-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqkl1_I_pkH0_hvh-yYW7i2_C_WBdjsIMF7Q&s" alt="Vistara Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Vistara (UK 980)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹4100</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 10:00 AM</p>
+                        <p>Duration: 3h 05m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 01:05 PM</p>
+                        <p class="text-green-400">1 Stop</p>
+                    </div>
+                </div>
+            </a>
+
+
+            <a href="seat.html?fare=3700" data-airline="Air India" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-900 rounded-full flex items-center justify-center">
+                            <img src="https://webdesignerdepot-wp.s3.us-east-2.amazonaws.com/2023/08/11062906/air-india-old-logo.1.jpg" alt="Air India Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Air India (AI 541)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹3700</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 04:30 PM</p>
+                        <p>Duration: 4h 15m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 08:45 PM</p>
+                        <p class="text-green-400">Direct Flight</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="seat.html?fare=5400" data-airline="Akasa Air" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-900 rounded-full flex items-center justify-center">
+                            <img src="https://lirp.cdn-website.com/18665353/dms3rep/multi/opt/Akasa+Air+-+Vertical+Logo-640w.jpg" alt="Akasa Air Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Akasa Air (AR 841)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹5400</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 6:00 PM</p>
+                        <p>Duration: 3h 55m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 9:00 PM</p>
+                        <p class="text-green-400">2 Stop</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="seat.html?fare=5700" data-airline="Emirates" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-900 rounded-full flex items-center justify-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Y6K6yIRqkUlWj6vU91UVW2GUEzRQCyQxtg&s" alt="Emirates Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Emirates (EM 451)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹5700</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 7:00 PM</p>
+                        <p>Duration: 3h 55m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 9:45 PM</p>
+                        <p class="text-green-400">1 Stop</p>
+                    </div>
+                </div>
+            </a>
+
+           <a href="seat.html?fare=6400" data-airline="Indigo" class="airline-card p-6 rounded-xl shadow-xl cursor-pointer">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white-900 rounded-full flex items-center justify-center">
+                            <img src="https://seekvectorlogo.com/wp-content/uploads/2022/01/indigo-vector-logo-2022.png" alt="Indigo Logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold">Indigo (IN 691)</p>
+                            <p class="text-sm text-white/80">Economy Class</p>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-extrabold text-white-400">₹6400</span>
+                </div>
+                <div class="flex justify-between text-sm font-medium">
+                    <div>
+                        <p>Departs: 7:55 PM</p>
+                        <p>Duration: 4h 15m</p>
+                    </div>
+                    <div class="text-right">
+                        <p>Arrives: 11:05 PM</p>
+                        <p class="text-green-400">Direct Flight</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="airline.js"></script>
+</body>
+</html>
