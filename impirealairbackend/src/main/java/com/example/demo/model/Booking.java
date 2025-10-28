@@ -10,7 +10,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // --- CRITICAL: Explicit mapping to match your DB column names ---
+    
 
     @Column(name = "passenger_name")
     private String passengerName;
@@ -53,9 +53,7 @@ public class Booking {
     @Column(name = "seat_chosen")
     private String seatChosen;
 
-    // -------------------------------------------------------------------
-    // CONSTRUCTORS (FIX APPLIED to use String for dates)
-    // -------------------------------------------------------------------
+    
 
     public Booking() {
     }
@@ -78,9 +76,7 @@ public class Booking {
     }
 
 
-    // -------------------------------------------------------------------
-    // GETTERS AND SETTERS (FIX APPLIED to use String for dates)
-    // -------------------------------------------------------------------
+    
 
     public Long getId() {
         return id;
